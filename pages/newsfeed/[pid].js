@@ -1,21 +1,19 @@
 import Nav from '../../components/Nav'
 
-function newsfeed({ articles, page }) {
-     console.log(articles,page);
+function newsfeed({ articles, country }) {
+
     return (
         <div>
              <Nav />
             <div className="flex flex-col items-center justify-center justify-items-center">
                 {articles.map((article,index) => (
                     <div key={index}
-                        className=" w-1/2 border-b-2 border-gray-800 cursor-pointer"
+                        className=" w-1/2 border-b-2 border-gray-800 cursor-pointer py-5"
                         onClick={() => window.open(`${article.url}`)}
                     >
-                        <h1 className="text-xl font-bold"
-                            // onClick={() => window.open(`${article.url}`)}
-                        >{article.title}</h1>
+                        <h1 className="text-xl font-bold">{article.title}</h1>
                         <p>{article.description}</p>
-                        {article.urlToImage && <img classname="w-full"src={article.urlToImage}/>}
+                        {article.urlToImage && <img className="w-full"src={article.urlToImage}/>}
                     </div>
                 ))}
             </div>
@@ -24,24 +22,16 @@ function newsfeed({ articles, page }) {
 }
 
 export const getServerSideProps = async (context) =>{
-    const page = context.query.pid
+    const country = context.query.pid
     const apiKey = process.env.API_KEY
-    if(!page || page < 1 ){
-        return {
-            props: {
-                articles: [],
-                page: 1
-            }
-        }
-    }
 
-    const res = await fetch(`https://newsapi.org/v2/top-headlines?country=ca&pageSize=5&page=${page}&apiKey=${apiKey}`)
+    const res = await fetch(`https://newsapi.org/v2/top-headlines?country=${country}&pageSize=100&apiKey=${apiKey}`)
     const data = await res.json()
     const {articles} = data
     return {
         props: {
             articles:articles,
-            page:Number.parseInt(page)
+            country:country
         }
     }
     
