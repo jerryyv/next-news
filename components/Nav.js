@@ -1,40 +1,24 @@
-import router, { useRouter } from 'next/router'
+import router from 'next/router'
 import { useState } from 'react'
 function Nav() {
-    const countries = [
-        'ca','us','gb','au','cn','ar','gr','za','in','ie','fr','de','ru','kr'
+    const categories = [
+        'Sports', 'Technology', 'Entertainment','Business'
     ]
     
-    const [isActive,setIsActive] = useState(false)
-
-    const handleSelect = (country) => {
-        setIsActive(false)
-        router.push(`/newsfeed/${country}`)
-    }
-    
+     
     return (
-        
-        <div className=" mt-5 space-x-5">
+        <div className="flex justify-between p-5">
             <h2 className="cursor-pointer hover:text-gray-500"
                 onClick={() => router.push('/')}
-            >Home
+            >NextNews
             </h2>
-                <button onClick={()=>setIsActive(!isActive)}>country</button>
-                {isActive ? 
-                    <>
-                        <div>
-                            {countries.map((country,index) => {
-                                return <p key={index} onClick={()=>handleSelect(country)}
-                                          className="cursor-pointer"  
-                                       >
-                                           {country}
-                                       </p>
-                            })
-                            }
-                        </div>
-                    </>
-                :<></>
-                }
+            <div className="space-x-4">
+                {categories.map((category,index) => {
+                    return <a key={index} onClick={() => router.push(`/category/${category}`)}
+                              className="cursor-pointer hover:underline"
+                            >{category}</a>
+                })}
+            </div>
             
            
         </div>

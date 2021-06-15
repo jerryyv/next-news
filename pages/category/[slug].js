@@ -1,6 +1,7 @@
 import Nav from '../../components/Nav'
 
-function newsfeed({ articles, country }) {
+
+function Category({ articles }) {
 
     return (
         <div>
@@ -13,7 +14,8 @@ function newsfeed({ articles, country }) {
                     >
                         <h1 className="text-xl font-bold">{article.title}</h1>
                         <p>{article.description}</p>
-                        {article.urlToImage && <img className="w-full"src={article.urlToImage}/>}
+                        {article.urlToImage && 
+                        <img className="w-full" src={article.urlToImage}/>}
                     </div>
                 ))}
             </div>
@@ -22,19 +24,19 @@ function newsfeed({ articles, country }) {
 }
 
 export const getServerSideProps = async (context) =>{
-    const country = context.query.pid
+    const category = context.query.slug.toLowerCase()
     const apiKey = process.env.API_KEY
 
-    const res = await fetch(`https://newsapi.org/v2/top-headlines?country=${country}&pageSize=100&apiKey=${apiKey}`)
+    const res = await fetch(`https://newsapi.org/v2/top-headlines?country=ca&category=${category}&apiKey=${apiKey}`)
     const data = await res.json()
     const {articles} = data
     return {
         props: {
             articles:articles,
-            country:country
+            
         }
     }
     
 }
 
-export default newsfeed
+export default Category
