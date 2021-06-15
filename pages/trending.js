@@ -1,11 +1,11 @@
 import Nav from '../components/Nav'
+import NewsFeed from '../components/NewsFeed'
 
 function trending({ articles }) {
-    console.log(articles);
     return (
         <div>
             <Nav />
-            <h2>Top Headlines</h2>
+            <NewsFeed articles={articles}/>
         </div>
     )
 }
