@@ -1,14 +1,8 @@
-import Nav from '../../components/Nav'
 import NewsFeed from '../../components/NewsFeed'
 
 function Category({ articles }) {
 
-    return (
-        <div>
-             <Nav />
-             <NewsFeed articles={articles}/>
-        </div>
-    )
+    return <NewsFeed articles={articles}/>
 }
 
 export const getServerSideProps = async (context) =>{

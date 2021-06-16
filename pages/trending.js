@@ -1,13 +1,8 @@
-import Nav from '../components/Nav'
 import NewsFeed from '../components/NewsFeed'
 
 function trending({ articles }) {
-    return (
-        <div>
-            <Nav />
-            <NewsFeed articles={articles}/>
-        </div>
-    )
+    
+    return <NewsFeed articles={articles}/>
 }
 
 export default trending
