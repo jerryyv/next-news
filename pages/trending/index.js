@@ -1,13 +1,22 @@
 import NewsFeed from '../../components/NewsFeed'
 import Pagination from '../../components/Pagination'
+import { useCategory } from '../../context/CategoryContext'
+import { useEffect } from 'react'
 
-function Trending({ articles, page, total }) {
+export function Trending({ articles, page, total }) {
+    const { setSelectedCategory } = useCategory()
     const url = `/trending`
+
+    useEffect(() => {
+        setSelectedCategory('All')
+    }, [])
+
     return (
-        <>
+        <div className="flex flex-col items-center">
+            <h1 className="text-3xl font-bold py-4">Top Trending</h1>
             <NewsFeed articles={articles}/>
             <Pagination url={url} page={page} total={total}/>
-        </>
+        </div>
   )      
 }
 

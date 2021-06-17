@@ -1,25 +1,46 @@
 import router from 'next/router'
 import { useState } from 'react'
+import { useCategory } from '../context/CategoryContext'
 
 const categories = [
-    'Sports', 
-    'Technology', 
-    'Entertainment',
-    'Business'
+    {
+        name: 'All',
+        url: '/trending?page=1'
+    },
+    {
+        name: 'Sports',
+        url: '/trending/Sports?page=1'
+    },
+    {
+        name: 'Technology',
+        url: '/trending/Technology?page=1'
+    },
+    {
+        name: 'Entertainment',
+        url: '/trending/Entertainment?page=1'
+    },
+    {
+        name: 'Business',
+        url: '/trending/Business?page=1'
+    }
 ]
+
+const handleClick = (url) => {
+    router.push(url)
+}
 
 function Nav() {
     const [isOpen, setIsOpen] = useState(false)
+    const { selectedCategory } = useCategory()
 
-    const handleClick = (category) => {
-        router.push(`/trending/${category}?page=1`)
-    }
-    
+    console.log(selectedCategory)
+
     return (
         <nav className="bg-red-700 text-gray-100">
             <div className="flex items-center justify-between py-5 px-10 lg:px-20">
                 <div className="flex items-center cursor-pointer hover:text-white"
                     onClick={() => {
+                        setIsOpen(false)
                         router.push('/')
                     }}
                 >
@@ -29,10 +50,12 @@ function Nav() {
                     <h2 className="text-3xl">NextNews</h2>
                 </div>
                 <div className="hidden sm:flex space-x-4">
+
                     {categories.map((category,index) => {
-                        return <a key={index} onClick={() => handleClick(category)}
-                                className={"cursor-pointer hover:underline hover:text-white "}
-                                >{category}</a>
+                        console.log(category.name);
+                        return <a key={index} onClick={() => handleClick(category.url)}
+                                className={selectedCategory===category.name?"cursor-pointer text-white underline":"cursor-pointer hover:underline hover:text-white "}
+                                >{category.name}</a>
                     })}
                 </div>
                 {/* hamburger menu for mobile screens */}
@@ -47,9 +70,9 @@ function Nav() {
             {isOpen &&
                 <div className="flex flex-col items-end px-8 sm:hidden pb-4">
                 {categories.map((category,index) => {
-                            return <a key={index} onClick={()=>handleClick(category)}
-                                    className="cursor-pointer hover:underline py-1"
-                                    >{category}</a>
+                            return <a key={index} onClick={()=>handleClick(category.url)}
+                                    className={selectedCategory===category.name?"cursor-pointer py-1 underline text-white ":"cursor-pointer py-1 hover:underline hover:text-white"}
+                                    >{category.name}</a>
                         })} 
                 </div>
             }

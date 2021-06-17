@@ -1,13 +1,22 @@
 import NewsFeed from '../../components/NewsFeed'
 import Pagination from '../../components/Pagination'
+import { useEffect } from 'react'
+import { useCategory } from '../../context/CategoryContext'
 
 function Category({ articles, page, total, category }) {
+    const { setSelectedCategory } = useCategory()
     const url = `/trending/${category}`
+
+    useEffect(() => {
+        setSelectedCategory(category)
+    }, [category])
+    
     return (
-        <>
+        <div className="flex flex-col items-center">
+            <h1 className="text-3xl font-bold py-4">{category} Trending</h1>
             <NewsFeed articles={articles}/>
             <Pagination url={url} page={page} total={total}/>
-        </>
+        </div>
     )}
 
 export const getServerSideProps = async (context) =>{

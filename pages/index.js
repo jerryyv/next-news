@@ -1,9 +1,15 @@
 import Head from 'next/head'
-import Image from 'next/image'
-import Nav from '../components/Nav'
 import router from 'next/router'
+import { useCategory } from '../context/CategoryContext'
+import { useEffect } from 'react'
 
 export default function Home() {
+  const { setSelectedCategory } = useCategory()
+
+  useEffect(() => {
+    setSelectedCategory('')
+}, [])
+
   return (
     <div>
       <div className="flex flex-col items-center h-full w-full fixed justify-center px-4 space-y-8">
