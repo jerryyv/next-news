@@ -1,7 +1,9 @@
 import Link from 'next/link'
 
+
 function Pagination({ page, url, total }) {
     const lastPage = Math.ceil(total/8)
+    
     return (
         <div className=" my-4 text-gray-100 hover:text-white">
             {page > 1 && (

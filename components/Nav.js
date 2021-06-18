@@ -1,29 +1,8 @@
 import router from 'next/router'
 import { useState } from 'react'
 import { useCategory } from '../context/CategoryContext'
+import { categories } from '../utils/categories'
 
-const categories = [
-    {
-        name: 'All',
-        url: '/trending?page=1'
-    },
-    {
-        name: 'Sports',
-        url: '/trending/Sports?page=1'
-    },
-    {
-        name: 'Technology',
-        url: '/trending/Technology?page=1'
-    },
-    {
-        name: 'Entertainment',
-        url: '/trending/Entertainment?page=1'
-    },
-    {
-        name: 'Business',
-        url: '/trending/Business?page=1'
-    }
-]
 
 const handleClick = (url) => {
     router.push(url)
@@ -33,7 +12,6 @@ function Nav() {
     const [isOpen, setIsOpen] = useState(false)
     const { selectedCategory } = useCategory()
 
-    console.log(selectedCategory)
 
     return (
         <nav className="bg-red-700 text-gray-100">
@@ -52,14 +30,13 @@ function Nav() {
                 <div className="hidden sm:flex space-x-4">
 
                     {categories.map((category,index) => {
-                        console.log(category.name);
                         return <a key={index} onClick={() => handleClick(category.url)}
                                 className={selectedCategory===category.name?"cursor-pointer text-white underline":"cursor-pointer hover:underline hover:text-white "}
                                 >{category.name}</a>
                     })}
                 </div>
                 {/* hamburger menu for mobile screens */}
-                <button onClick={()=>setIsOpen(!isOpen)} className="sm:hidden h-6 w-6 cursor-pointer focus:outline-none">
+                <button onClick={()=>setIsOpen(!isOpen)} className="sm:hidden h-8 w-8 cursor-pointer focus:outline-none">
                     <svg 
                         xmlns="http://www.w3.org/2000/svg"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />

@@ -2,8 +2,9 @@ import NewsFeed from '../../components/NewsFeed'
 import Pagination from '../../components/Pagination'
 import { useCategory } from '../../context/CategoryContext'
 import { useEffect } from 'react'
+import NotFound from '../404'
 
-export function Trending({ articles, page, total }) {
+export function TrendingPage({ articles, page, total }) {
     const { setSelectedCategory } = useCategory()
     const url = `/trending`
 
@@ -11,6 +12,8 @@ export function Trending({ articles, page, total }) {
         setSelectedCategory('All')
     }, [])
 
+    if(articles.length < 1) return <NotFound />
+    
     return (
         <div className="flex flex-col items-center">
             <h1 className="text-3xl font-bold py-4">Top Trending</h1>
@@ -20,7 +23,7 @@ export function Trending({ articles, page, total }) {
   )      
 }
 
-export default Trending
+export default TrendingPage
 
 
 export const getServerSideProps = async (context) => {
