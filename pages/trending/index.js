@@ -2,9 +2,10 @@ import NewsFeed from '../../components/NewsFeed'
 import Pagination from '../../components/Pagination'
 import { useCategory } from '../../context/CategoryContext'
 import { useEffect } from 'react'
-import NotFound from '../404'
 
-export function TrendingPage({ articles, page, total }) {
+// all trending articles 
+export function TrendingPage({  page,data }) {
+    const { articles,totalResults } = data 
     const { setSelectedCategory } = useCategory()
     const url = `/trending`
 
@@ -12,13 +13,17 @@ export function TrendingPage({ articles, page, total }) {
         setSelectedCategory('All')
     }, [])
 
-    if(articles.length < 1) return <NotFound />
+    if(!articles || articles.length < 1){
+        return (
+        <p className="text-xl flex justify-center mt-4">No Articles Found</p>
+        )
+    } 
     
     return (
         <div className="flex flex-col items-center">
             <h1 className="text-3xl font-bold py-4">Top Trending</h1>
             <NewsFeed articles={articles}/>
-            <Pagination url={url} page={page} total={total}/>
+            <Pagination url={url} page={page} total={totalResults}/>
         </div>
   )      
 }
@@ -27,16 +32,17 @@ export default TrendingPage
 
 
 export const getServerSideProps = async (context) => {
+    const {query:{page=1}} = context
     const apiKey = process.env.API_KEY
-    const page = context.query.page 
+
     const res = await fetch(`https://newsapi.org/v2/top-headlines?country=ca&pageSize=8&page=${page}&apiKey=${apiKey}`)
     const data = await res.json()
-    const {articles, totalResults} = data
+    
     return {
         props: {
-            articles: articles,
+            data:data,
             page: +page,
-            total: totalResults
+            
         }
     }
 }
