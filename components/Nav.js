@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useCategory } from '../context/CategoryContext'
 import { categories } from '../utils/categories'
-import Link from 'next/Link'
+import Link from 'next/link'
 
 function Nav() {
     const [isOpen, setIsOpen] = useState(false)
