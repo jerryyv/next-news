@@ -2,6 +2,7 @@ import NewsFeed from '../../components/NewsFeed'
 import Pagination from '../../components/Pagination'
 import { useEffect } from 'react'
 import { useCategory } from '../../context/CategoryContext'
+import Layout from '../../components/Layout'
 
 // trending articles for each category 
 function Category({ data,page,category }) {
@@ -18,11 +19,13 @@ function Category({ data,page,category }) {
     if(!articles || articles.length < 1) return <p className="text-xl flex justify-center mt-4">No Articles Found</p>
     
     return (
+        <Layout title={`${category} trending`}>
         <div className="flex flex-col items-center">
             <h1 className="text-3xl font-bold py-4">{selectedCategory} Trending</h1>
             <NewsFeed articles={articles}/>
             <Pagination url={url} page={page} total={totalResults}/>
         </div>
+       </Layout>
     )}
 
 export const getServerSideProps = async (context) =>{

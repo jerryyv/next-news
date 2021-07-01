@@ -1,6 +1,7 @@
 import { useCategory } from '../context/CategoryContext'
 import { useEffect } from 'react'
 import Link from 'next/link'
+import Layout from '../components/Layout'
 
 export default function Home() {
   const { setSelectedCategory } = useCategory()
@@ -10,7 +11,7 @@ export default function Home() {
 }, [])
 
   return (
-    <div>
+    <Layout >
       <div className="flex flex-col items-center h-full w-full fixed justify-center px-4 space-y-8">
         <h2 className="font-extrabold text-5xl -mt-28">NextNews</h2>
         <h3 className="text-bold text-4xl text-center">Find Breaking News Articles From Sources All Across Canada!</h3>
@@ -23,7 +24,7 @@ export default function Home() {
           </div>
         </Link>
       </div>
-    </div>
+    </Layout>
 
     
   )

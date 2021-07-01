@@ -2,7 +2,7 @@ import NewsFeed from '../../components/NewsFeed'
 import Pagination from '../../components/Pagination'
 import { useCategory } from '../../context/CategoryContext'
 import { useEffect } from 'react'
-
+import Layout from '../../components/Layout'
 // all trending articles 
 export function TrendingPage({  page,data }) {
     const { articles,totalResults } = data 
@@ -20,11 +20,13 @@ export function TrendingPage({  page,data }) {
     } 
     
     return (
+        <Layout title="top trending">
         <div className="flex flex-col items-center">
             <h1 className="text-3xl font-bold py-4">Top Trending</h1>
             <NewsFeed articles={articles}/>
             <Pagination url={url} page={page} total={totalResults}/>
         </div>
+        </Layout>
   )      
 }
 
