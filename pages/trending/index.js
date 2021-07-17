@@ -12,20 +12,16 @@ export function TrendingPage({  page,data }) {
     useEffect(() => {
         setSelectedCategory('All')
     }, [])
-
-    if(!articles || articles.length < 1){
-        return (
-        <p className="text-xl flex justify-center mt-4">No Articles Found</p>
-        )
-    } 
     
     return (
         <Layout title="top trending">
-        <div className="flex flex-col items-center">
-            <h1 className="text-3xl font-bold py-4">Top Trending</h1>
-            <NewsFeed articles={articles}/>
-            <Pagination url={url} page={page} total={totalResults}/>
-        </div>
+            {articles && 
+                <div className="flex flex-col items-center">
+                    <h1 className="text-3xl font-bold py-4">Top Trending</h1>
+                    <NewsFeed articles={articles}/>
+                    <Pagination url={url} page={page} total={totalResults}/>
+                </div>
+           }
         </Layout>
   )      
 }
